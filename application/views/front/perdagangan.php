@@ -14,7 +14,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="<?php echo base_url('assets/css/styles.css')?>" rel="stylesheet">
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -26,28 +26,28 @@
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="profil.html">Profil</a></li>
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="Main">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Profil">Profil</a></li>
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                               Bidang
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="koperasi.html">Koperasi</a></li>
-                              <li><a class="dropdown-item" href="umkm.html">UMKM</a></li>
-                              <li><a class="dropdown-item" href="perdagangan.html">Perdagangan</a></li>
-                              <li><a class="dropdown-item" href="perindustrian.html">Perindustrian</a></li>
-                              <li><a class="dropdown-item" href="pasar.html">Pasar</a></li>
-                              <li><a class="dropdown-item" href="sekretariat.html">Sekretariat</a></li>
+                              <li><a class="dropdown-item" href="Koperasi">Koperasi</a></li>
+                              <li><a class="dropdown-item" href="Umkm">UMKM</a></li>
+                              <li><a class="dropdown-item" href="Perdagangan">Perdagangan</a></li>
+                              <li><a class="dropdown-item" href="Perindustrian">Perindustrian</a></li>
+                              <li><a class="dropdown-item" href="Pasar">Pasar</a></li>
+                              <li><a class="dropdown-item" href="Sekretariat">Sekretariat</a></li>
                             </ul>
                           </div>
-                        <li class="nav-item"><a class="nav-link" href="berita.html">Berita</a></li>
-                        <li class="nav-item"><a class="nav-link" href="produk.html">Produk Unggulan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="galeri.html">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                    </ul>
-                </div>
+                        <li class="nav-item"><a class="nav-link" href="Berita">Berita</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Produk">Produk Unggulan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Auth" onClick="" target="_blank">Login</a></li>
+                </ul>
+            </div>
             </div>
         </nav>
         <!-- Masthead-->
@@ -218,7 +218,7 @@
         <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script src="<?php echo base_url('assets/js/scripts.js')?>"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
