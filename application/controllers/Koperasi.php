@@ -9,7 +9,7 @@ class Koperasi extends CI_Controller {
 	// }
 
     public function index() {
-        $this->load->view('front/koperasi');
+        $this->load->view('front/koperasii');
     }
     
     }
