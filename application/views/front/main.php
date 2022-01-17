@@ -55,6 +55,9 @@
             <div class="container">
                 <div class="masthead-heading">SELAMAT DATANG DI WEBSITE DINAS KOPERASI UMKM PERDAGANGAN DAN PERINDUSTRIAN <br>
                 KAB. SUBANG</div>
+                <video  width="100%">
+                <source src="assets/img/subang.mp4" type="video/mp4">
+            </video>
             </div>
         </header>
         <!-- Services-->

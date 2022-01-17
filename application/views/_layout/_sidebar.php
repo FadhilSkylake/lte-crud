@@ -27,37 +27,37 @@
       </li>
       
       <li>
-        <a href="<?php echo base_url('umkm'); ?>">
+        <a href="<?php echo base_url('Umkm'); ?>">
         <i class="fa fa-coffee"></i>
         <span>Bidang UMKM</span>
         </a>
       </li>
 
       <li>
-        <a href="<?php echo base_url('koperasi'); ?>">
+        <a href="<?php echo base_url('Koperasi'); ?>">
         <i class="fa fa-landmark"></i>
         <span>Bidang Koperasi</span>
         </a>
       </li>
       
-      <li>
-        <a href="<?php echo base_url('industri'); ?>">
+      <li <?php if ($page == 'perindustrian') {echo 'class="active';}?>>
+        <a href="<?php echo base_url('Industri'); ?>">
         <i class="fa fa-coffee"></i>
         <span>Bidang Industri</span>
         </a>
       </li>
       
       <li>
-        <a href="<?php echo base_url('pasar'); ?>">
+        <a href="<?php echo base_url('Pasar'); ?>">
         <i class="fa fa-balance-scale"></i>
         <span>Bidang Pasar</span>
         </a>
       </li>
 
       <li>
-        <a href="<?php echo base_url('pemasaran'); ?>">
+        <a href="<?php echo base_url('Perdagangan'); ?>">
         <i class="fa fa-coffee"></i>
-        <span>Bidang pemasaran</span>
+        <span>Bidang Perdagangan</span>
         </a>
       </li>
       
