@@ -37,7 +37,7 @@
                               <li><a class="dropdown-item" href="Koperasi">Koperasi</a></li>
                               <li><a class="dropdown-item" href="Umkm">UMKM</a></li>
                               <li><a class="dropdown-item" href="Perdagangan">Perdagangan</a></li>
-                              <li><a class="dropdown-item" href="Perindustrian">Perindustrian</a></li>
+                              <li><a class="dropdown-item" href="C_Perindustrian">Perindustrian</a></li>
                               <li><a class="dropdown-item" href="Pasar">Pasar</a></li>
                               <li><a class="dropdown-item" href="Sekretariat">Sekretariat</a></li>
                             </ul>
