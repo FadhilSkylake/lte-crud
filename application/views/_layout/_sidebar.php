@@ -40,7 +40,7 @@
         </a>
       </li>
       
-      <li <?php if ($page == 'perindustrian') {echo 'class="active';}?>>
+      <li <?php if ($page == 'industri') {echo 'class="active';}?>>
         <a href="<?php echo base_url('Industri'); ?>">
         <i class="fa fa-coffee"></i>
         <span>Bidang Industri</span>
