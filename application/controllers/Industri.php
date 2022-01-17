@@ -1,164 +1,203 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+class Industri extends AUTH_Controller {
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('Industri_model');
+	}
 
-class Industri extends CI_Controller
-{
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Industri_model');
-        $this->load->library('form_validation');
-    }
+	public function index() {
+		$data['userdata'] = $this->userdata;
+		$data['dataPegawai'] = $this->Industri_model->select_all();
 
-    public function index()
-    {
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-        
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'industri/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'industri/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'industri/index.html';
-            $config['first_url'] = base_url() . 'industri/index.html';
-        }
+		$data['page'] = "Perindustrian";
+		$data['judul'] = "Data Perusahaan";
+		$data['deskripsi'] = "Manage Data Perusahaan";
 
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Industri_model->total_rows($q);
-        $industri = $this->Industri_model->get_limit_data($config['per_page'], $start, $q);
+		$data['modal_tambah_pegawai'] = show_my_modal('modals/modal_tambah_pegawai', 'tambah-pegawai', $data);
 
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
+		$this->template->views('pegawai/home', $data);
+	}
 
-        $data = array(
-            'industri_data' => $industri,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
-        );
-        $this->load->view('industri/industri_list', $data);
-    }
+	public function tampil() {
+		$data['dataPegawai'] = $this->M_pegawai->select_all();
+		$this->load->view('pegawai/list_data', $data);
+	}
 
-    public function read($id) 
-    {
-        $row = $this->Industri_model->get_by_id($id);
-        if ($row) {
-            $data = array(
-		'id_perusahaan' => $row->id_perusahaan,
-		'nama_perusahaan' => $row->nama_perusahaan,
-		'alamat_perusahaan' => $row->alamat_perusahaan,
-		'ket' => $row->ket,
-	    );
-            $this->load->view('industri/industri_read', $data);
-        } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('industri'));
-        }
-    }
+	public function prosesTambah() {
+		$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
+		$this->form_validation->set_rules('kota', 'Kota', 'trim|required');
+		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('posisi', 'Posisi', 'trim|required');
 
-    public function create() 
-    {
-        $data = array(
-            'button' => 'Create',
-            'action' => site_url('industri/create_action'),
-	    'id_perusahaan' => set_value('id_perusahaan'),
-	    'nama_perusahaan' => set_value('nama_perusahaan'),
-	    'alamat_perusahaan' => set_value('alamat_perusahaan'),
-	    'ket' => set_value('ket'),
-	);
-        $this->load->view('industri/industri_form', $data);
-    }
+		$data = $this->input->post();
+		if ($this->form_validation->run() == TRUE) {
+			$result = $this->M_pegawai->insert($data);
+
+			if ($result > 0) {
+				$out['status'] = '';
+				$out['msg'] = show_succ_msg('Data Pegawai Berhasil ditambahkan', '20px');
+			} else {
+				$out['status'] = '';
+				$out['msg'] = show_err_msg('Data Pegawai Gagal ditambahkan', '20px');
+			}
+		} else {
+			$out['status'] = 'form';
+			$out['msg'] = show_err_msg(validation_errors());
+		}
+
+		echo json_encode($out);
+	}
+
+	public function update() {
+		$id = trim($_POST['id']);
+
+		$data['dataPegawai'] = $this->M_pegawai->select_by_id($id);
+		$data['dataPosisi'] = $this->M_posisi->select_all();
+		$data['dataKota'] = $this->M_kota->select_all();
+		$data['userdata'] = $this->userdata;
+
+		echo show_my_modal('modals/modal_update_pegawai', 'update-pegawai', $data);
+	}
+
+	public function prosesUpdate() {
+		$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
+		$this->form_validation->set_rules('kota', 'Kota', 'trim|required');
+		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('posisi', 'Posisi', 'trim|required');
+
+		$data = $this->input->post();
+		if ($this->form_validation->run() == TRUE) {
+			$result = $this->M_pegawai->update($data);
+
+			if ($result > 0) {
+				$out['status'] = '';
+				$out['msg'] = show_succ_msg('Data Pegawai Berhasil diupdate', '20px');
+			} else {
+				$out['status'] = '';
+				$out['msg'] = show_succ_msg('Data Pegawai Gagal diupdate', '20px');
+			}
+		} else {
+			$out['status'] = 'form';
+			$out['msg'] = show_err_msg(validation_errors());
+		}
+
+		echo json_encode($out);
+	}
+
+	public function delete() {
+		$id = $_POST['id'];
+		$result = $this->M_pegawai->delete($id);
+
+		if ($result > 0) {
+			echo show_succ_msg('Data Pegawai Berhasil dihapus', '20px');
+		} else {
+			echo show_err_msg('Data Pegawai Gagal dihapus', '20px');
+		}
+	}
+
+	public function export() {
+		error_reporting(E_ALL);
     
-    public function create_action() 
-    {
-        $this->_rules();
+		include_once './assets/phpexcel/Classes/PHPExcel.php';
+		$objPHPExcel = new PHPExcel();
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->create();
-        } else {
-            $data = array(
-		'nama_perusahaan' => $this->input->post('nama_perusahaan',TRUE),
-		'alamat_perusahaan' => $this->input->post('alamat_perusahaan',TRUE),
-		'ket' => $this->input->post('ket',TRUE),
-	    );
+		$data = $this->M_pegawai->select_all_pegawai();
 
-            $this->Industri_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('industri'));
-        }
-    }
-    
-    public function update($id) 
-    {
-        $row = $this->Industri_model->get_by_id($id);
+		$objPHPExcel = new PHPExcel(); 
+		$objPHPExcel->setActiveSheetIndex(0); 
+		$rowCount = 1; 
 
-        if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('industri/update_action'),
-		'id_perusahaan' => set_value('id_perusahaan', $row->id_perusahaan),
-		'nama_perusahaan' => set_value('nama_perusahaan', $row->nama_perusahaan),
-		'alamat_perusahaan' => set_value('alamat_perusahaan', $row->alamat_perusahaan),
-		'ket' => set_value('ket', $row->ket),
-	    );
-            $this->load->view('industri/industri_form', $data);
-        } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('industri'));
-        }
-    }
-    
-    public function update_action() 
-    {
-        $this->_rules();
+		$objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, "ID");
+		$objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, "Nama");
+		$objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, "Nomor Telepon");
+		$objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, "ID Kota");
+		$objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, "ID Kelamin");
+		$objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, "ID Posisi");
+		$objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, "Status");
+		$rowCount++;
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id_perusahaan', TRUE));
-        } else {
-            $data = array(
-		'nama_perusahaan' => $this->input->post('nama_perusahaan',TRUE),
-		'alamat_perusahaan' => $this->input->post('alamat_perusahaan',TRUE),
-		'ket' => $this->input->post('ket',TRUE),
-	    );
+		foreach($data as $value){
+		    $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $value->id); 
+		    $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $value->nama); 
+		    $objPHPExcel->getActiveSheet()->setCellValueExplicit('C'.$rowCount, $value->telp, PHPExcel_Cell_DataType::TYPE_STRING);
+		    $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $value->id_kota); 
+		    $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $value->id_kelamin); 
+		    $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $value->id_posisi); 
+		    $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $value->status); 
+		    $rowCount++; 
+		} 
 
-            $this->Industri_model->update($this->input->post('id_perusahaan', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('industri'));
-        }
-    }
-    
-    public function delete($id) 
-    {
-        $row = $this->Industri_model->get_by_id($id);
+		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel); 
+		$objWriter->save('./assets/excel/Data Pegawai.xlsx'); 
 
-        if ($row) {
-            $this->Industri_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('industri'));
-        } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('industri'));
-        }
-    }
+		$this->load->helper('download');
+		force_download('./assets/excel/Data Pegawai.xlsx', NULL);
+	}
 
-    public function _rules() 
-    {
-	$this->form_validation->set_rules('nama_perusahaan', 'nama perusahaan', 'trim|required');
-	$this->form_validation->set_rules('alamat_perusahaan', 'alamat perusahaan', 'trim|required');
-	$this->form_validation->set_rules('ket', 'ket', 'trim|required');
+	public function import() {
+		$this->form_validation->set_rules('excel', 'File', 'trim|required');
 
-	$this->form_validation->set_rules('id_perusahaan', 'id_perusahaan', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
-    }
+		if ($_FILES['excel']['name'] == '') {
+			$this->session->set_flashdata('msg', 'File harus diisi');
+		} else {
+			$config['upload_path'] = './assets/excel/';
+			$config['allowed_types'] = 'xls|xlsx';
+			
+			$this->load->library('upload', $config);
+			
+			if ( ! $this->upload->do_upload('excel')){
+				$error = array('error' => $this->upload->display_errors());
+			}
+			else{
+				$data = $this->upload->data();
+				
+				error_reporting(E_ALL);
+				date_default_timezone_set('Asia/Jakarta');
 
+				include './assets/phpexcel/Classes/PHPExcel/IOFactory.php';
+
+				$inputFileName = './assets/excel/' .$data['file_name'];
+				$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+				$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+
+				$index = 0;
+				foreach ($sheetData as $key => $value) {
+					if ($key != 1) {
+						$id = md5(DATE('ymdhms').rand());
+						$check = $this->M_pegawai->check_nama($value['B']);
+
+						if ($check != 1) {
+							$resultData[$index]['id'] = $id;
+							$resultData[$index]['nama'] = ucwords($value['B']);
+							$resultData[$index]['telp'] = $value['C'];
+							$resultData[$index]['id_kota'] = $value['D'];
+							$resultData[$index]['id_kelamin'] = $value['E'];
+							$resultData[$index]['id_posisi'] = $value['F'];
+							$resultData[$index]['status'] = $value['G'];
+						}
+					}
+					$index++;
+				}
+
+				unlink('./assets/excel/' .$data['file_name']);
+
+				if (count($resultData) != 0) {
+					$result = $this->M_pegawai->insert_batch($resultData);
+					if ($result > 0) {
+						$this->session->set_flashdata('msg', show_succ_msg('Data Pegawai Berhasil diimport ke database'));
+						redirect('Pegawai');
+					}
+				} else {
+					$this->session->set_flashdata('msg', show_msg('Data Pegawai Gagal diimport ke database (Data Sudah terupdate)', 'warning', 'fa-warning'));
+					redirect('Pegawai');
+				}
+
+			}
+		}
+	}
 }
 
-/* End of file Industri.php */
-/* Location: ./application/controllers/Industri.php */
-/* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2022-01-17 08:36:49 */
-/* http://harviacode.com */
+/* End of file Pegawai.php */
+/* Location: ./application/controllers/Pegawai.php */
