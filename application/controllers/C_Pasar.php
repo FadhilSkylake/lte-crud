@@ -1,7 +1,7 @@
 <?php
 defineD('BASEPATH') OR exit('No direct script access allowed');
 
-class C_Pasar extends CI_Controller {
+class C_pasar extends CI_Controller {
     
     // public function __construct() {
 	// 	parent::__construct();
