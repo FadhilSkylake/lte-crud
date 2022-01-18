@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Industri_model extends CI_Model {
 	public function select_all() {
-		$sql = "SELECT * FROM pegawai";
+		$sql = "SELECT * FROM industri";
 
 		$data = $this->db->query($sql);
 
@@ -35,6 +35,3 @@ class Industri_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 }
-
-/* End of file M_pegawai.php */
-/* Location: ./application/models/M_pegawai.php */

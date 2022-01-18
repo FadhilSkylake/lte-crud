@@ -43,6 +43,14 @@
 		});
 	}
 
+	function tampilIndustri() {
+		$.get('<?php echo base_url('Industri/tampil'); ?>', function(data) {
+			MyTable.fnDestroy();
+			$('#data-perusahaan').html(data);
+			refresh();
+		});
+	}
+
 	var id_pegawai;
 	$(document).on("click", ".konfirmasiHapus-pegawai", function() {
 		id_pegawai = $(this).attr("data-id");
