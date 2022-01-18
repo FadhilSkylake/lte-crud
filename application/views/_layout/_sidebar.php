@@ -47,7 +47,7 @@
         </a>
       </li>
       
-      <li>
+      <li <?php if ($page == 'pasar') {echo 'class="active"';}?>>
         <a href="<?php echo base_url('Pasar'); ?>">
         <i class="fa fa-balance-scale"></i>
         <span>Bidang Pasar</span>
