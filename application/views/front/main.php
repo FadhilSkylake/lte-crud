@@ -35,7 +35,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                               <li><a class="dropdown-item" href="Koperasi">Koperasi</a></li>
-                              <li><a class="dropdown-item" href="Umkm">UMKM</a></li>
+                              <li><a class="dropdown-item" href="C_umkm">UMKM</a></li>
                               <li><a class="dropdown-item" href="Perdagangan">Perdagangan</a></li>
                               <li><a class="dropdown-item" href="C_Perindustrian">Perindustrian</a></li>
                               <li><a class="dropdown-item" href="Pasar">Pasar</a></li>
