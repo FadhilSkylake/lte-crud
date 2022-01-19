@@ -7,6 +7,9 @@ class Pasar extends AUTH_Controller {
 		$this->load->model('Pasar_model');
 	}
 
+	public function front() {
+        $this->load->view('front/pasar');
+	}
 	public function index() {
 		$data['userdata'] = $this->userdata;
 		$data['dataPasar'] = $this->Pasar_model->select_all();

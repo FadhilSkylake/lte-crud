@@ -55,14 +55,14 @@
       </li>
 
       <li <?php if ($page == 'Ppokok') {echo 'class="active"';}?>>
-        <a href="<?php echo base_url('Ppokok'); ?>">
+        <a href="<?php echo base_url('Perdagangan/pokok'); ?>">
         <i class="fa fa-coffee"></i>
         <span>Perdagangan Bahan Pokok</span>
         </a>
       </li>
 
       <li <?php if ($page == 'Ppenting') {echo 'class="active"';}?>>
-        <a href="<?php echo base_url('Ppenting'); ?>">
+        <a href="<?php echo base_url('Perdagangan/penting'); ?>">
         <i class="fa fa-coffee"></i>
         <span>Perdagangan Bahan Penting</span>
         </a>
