@@ -6,6 +6,10 @@ class Industri extends AUTH_Controller {
 		parent::__construct();
 		$this->load->model('Industri_model');
 	}
+	
+	public function front() {
+        $this->load->view('front/perindustrian');
+    }
 
 	public function index() {
 		$data['userdata'] = $this->userdata;

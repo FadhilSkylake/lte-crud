@@ -26,7 +26,7 @@
         </a>
       </li>
       
-      <li>
+      <li <?php if ($page == 'umkm') {echo 'class="active"';} ?>>
         <a href="<?php echo base_url('Umkm'); ?>">
         <i class="fa fa-coffee"></i>
         <span>Bidang UMKM</span>
