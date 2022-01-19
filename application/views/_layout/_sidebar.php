@@ -33,7 +33,7 @@
         </a>
       </li>
 
-      <li>
+      <li <?php if ($page == 'koperasi') {echo 'class="active"';}?>>
         <a href="<?php echo base_url('Koperasi'); ?>">
         <i class="fa fa-landmark"></i>
         <span>Bidang Koperasi</span>
