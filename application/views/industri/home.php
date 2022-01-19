@@ -5,7 +5,7 @@
 <div class="box">
   <div class="box-header">
     <div class="col-md-6" style="padding: 0;">
-        <button class="form-control btn btn-primary" data-toggle="modal" data-target="#tambah-pegawai"><i class="glyphicon glyphicon-plus-sign"></i> Tambah Data</button>
+        <button class="form-control btn btn-primary" data-toggle="modal" data-target="#tambah-perusahaan"><i class="glyphicon glyphicon-plus-sign"></i> Tambah Data</button>
     </div>
     <div class="col-md-3">
         <a href="<?php echo base_url('Pegawai/export'); ?>" class="form-control btn btn-default"><i class="glyphicon glyphicon glyphicon-floppy-save"></i> Export Data Excel</a>
@@ -34,3 +34,5 @@
     </table>
   </div>
 </div>
+
+<?php echo $modal_tambah_perusahaan; ?>

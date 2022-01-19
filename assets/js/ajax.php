@@ -43,14 +43,6 @@
 		});
 	}
 
-	function tampilIndustri() {
-		$.get('<?php echo base_url('Industri/tampil'); ?>', function(data) {
-			MyTable.fnDestroy();
-			$('#data-perusahaan').html(data);
-			refresh();
-		});
-	}
-
 	var id_pegawai;
 	$(document).on("click", ".konfirmasiHapus-pegawai", function() {
 		id_pegawai = $(this).attr("data-id");
@@ -394,4 +386,108 @@
 	$('#update-posisi').on('hidden.bs.modal', function () {
 	  $('.form-msg').html('');
 	})
+
+
+	function tampilPerusahaan() {
+		$.get('<?php echo base_url('Indusri/tampil'); ?>', function(data) {
+			MyTable.fnDestroy();
+			$('#data-perusahaan').html(data);
+			refresh();
+		});
+	}
+
+	var id_pegawai;
+	$(document).on("click", ".konfirmasiHapus-perusahaan", function() {
+		id_pegawai = $(this).attr("data-id");
+	})
+	$(document).on("click", ".hapus-dataPerusahaan", function() {
+		var id = id_pegawai;
+		
+		$.ajax({
+			method: "POST",
+			url: "<?php echo base_url('Pegawai/delete'); ?>",
+			data: "id=" +id
+		})
+		.done(function(data) {
+			$('#konfirmasiHapus').modal('hide');
+			tampilPegawai();
+			$('.msg').html(data);
+			effect_msg();
+		})
+	})
+
+	$(document).on("click", ".update-dataPegawai", function() {
+		var id = $(this).attr("data-id");
+		
+		$.ajax({
+			method: "POST",
+			url: "<?php echo base_url('Pegawai/update'); ?>",
+			data: "id=" +id
+		})
+		.done(function(data) {
+			$('#tempat-modal').html(data);
+			$('#update-pegawai').modal('show');
+		})
+	})
+
+	$('#form-tambah-pegawai').submit(function(e) {
+		var data = $(this).serialize();
+
+		$.ajax({
+			method: 'POST',
+			url: '<?php echo base_url('Pegawai/prosesTambah'); ?>',
+			data: data
+		})
+		.done(function(data) {
+			var out = jQuery.parseJSON(data);
+
+			tampilPegawai();
+			if (out.status == 'form') {
+				$('.form-msg').html(out.msg);
+				effect_msg_form();
+			} else {
+				document.getElementById("form-tambah-pegawai").reset();
+				$('#tambah-pegawai').modal('hide');
+				$('.msg').html(out.msg);
+				effect_msg();
+			}
+		})
+		
+		e.preventDefault();
+	});
+
+	$(document).on('submit', '#form-update-pegawai', function(e){
+		var data = $(this).serialize();
+
+		$.ajax({
+			method: 'POST',
+			url: '<?php echo base_url('Pegawai/prosesUpdate'); ?>',
+			data: data
+		})
+		.done(function(data) {
+			var out = jQuery.parseJSON(data);
+
+			tampilPegawai();
+			if (out.status == 'form') {
+				$('.form-msg').html(out.msg);
+				effect_msg_form();
+			} else {
+				document.getElementById("form-update-pegawai").reset();
+				$('#update-pegawai').modal('hide');
+				$('.msg').html(out.msg);
+				effect_msg();
+			}
+		})
+		
+		e.preventDefault();
+	});
+
+	$('#tambah-pegawai').on('hidden.bs.modal', function () {
+	  $('.form-msg').html('');
+	})
+
+	$('#update-pegawai').on('hidden.bs.modal', function () {
+	  $('.form-msg').html('');
+	})
+
 </script>
