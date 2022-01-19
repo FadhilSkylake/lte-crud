@@ -13,8 +13,8 @@
       <td><?= $umkm->jenis_usaha; ?></td>
       <td><?= $umkm->tahun_berdiri; ?></td>
       <td class="text-center" style="min-width:230px;">
-        <button class="btn btn-warning update-dataPerusahaan" data-id="<?php echo $umkm->profil; ?>"><i class="glyphicon glyphicon-repeat"></i> Update</button>
-        <button class="btn btn-danger konfirmasiHapus-perusahaan" data-id="<?php echo $umkm->profil; ?>" data-toggle="modal" data-target="#konfirmasiHapus"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
+        <button class="btn btn-warning update-dataUmkm" data-id="<?php echo $umkm->id_profil; ?>"><i class="glyphicon glyphicon-repeat"></i> Update</button>
+        <button class="btn btn-danger konfirmasiHapus-umkm" data-id="<?php echo $umkm->id_profil; ?>" data-toggle="modal" data-target="#konfirmasiHapus"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
       </td>
     </tr>
     <?php
